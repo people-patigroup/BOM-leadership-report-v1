@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOM 360° Leadership Report - PATI Group</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f5f5f5;--white:#fff;--text:#1a1a1a;--muted:#666;
+  --green:#10b981;--green-l:#d1fae5;--green-d:#065f46;
+  --red:#ef4444;--red-l:#fef2f2;--red-d:#991b1b;
+  --yellow:#f59e0b;--yellow-l:#fef3c7;--yellow-d:#92400e;
+  --blue:#3b82f6;--blue-l:#eff6ff;--blue-d:#1d4ed8;
+  --purple:#8b5cf6;--purple-l:#f5f3ff;--purple-d:#5b21b6;
+  --border:#e5e5e5;--sh:0 2px 12px rgba(0,0,0,0.07);
+  --kc:#10b981;--kl:#d1fae5;
+  --wc:#3b82f6;--wl:#eff6ff;
+  --sc:#f59e0b;--sl:#fef3c7;
+  --ec:#8b5cf6;--el:#f5f3ff;
+}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.5;padding:20px}
+.wrap{max-width:1280px;margin:0 auto;background:var(--white);border-radius:14px;box-shadow:var(--sh);padding:36px}
+
+/* HEADER */
+.hdr{text-align:center;border-bottom:2px solid var(--green);padding-bottom:22px;margin-bottom:28px}
+.hdr .badge{display:inline-block;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:3px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.hdr h1{font-size:28px;font-weight:800;color:var(--text);margin-bottom:4px}
+.hdr .sub{color:var(--muted);font-size:13px}
+.meta{display:flex;justify-content:center;gap:24px;margin-top:12px;flex-wrap:wrap}
+.meta span{font-size:11px;color:var(--muted)}.meta strong{color:var(--text)}
+
+/* ACCORDION SECTION */
+.sec{border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.sec-hd{background:#f8f8f8;padding:14px 20px;font-weight:700;font-size:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--green);user-select:none;transition:background .2s}
+.sec-hd:hover{background:#efefef}
+.sec-hd .stl{display:flex;align-items:center;gap:10px}
+.sec-hd .lbl{font-size:10px;font-weight:700;color:var(--green);background:var(--green-l);padding:2px 8px;border-radius:10px}
+.arr{font-size:16px;color:var(--green);transition:transform .3s}
+.sec.op .arr{transform:rotate(180deg)}
+.sec-bd{max-height:0;overflow:hidden;transition:max-height .4s ease-out}
+.sec.op .sec-bd{max-height:99999px;padding:22px}
+
+/* SUB ACCORDION */
+.sub{border:1px solid var(--border);border-radius:8px;margin-bottom:12px;overflow:hidden}
+.sub-hd{background:#fff;padding:11px 16px;font-weight:600;font-size:13px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.sub-hd:hover{background:#fafafa}
+.sarr{font-size:13px;color:var(--muted);transition:transform .3s}
+.sub.op .sarr{transform:rotate(180deg)}
+.sub-bd{max-height:0;overflow:hidden;transition:max-height .35s ease-out}
+.sub.op .sub-bd{max-height:9999px;padding:16px}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.scard{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.scard .num{font-size:30px;font-weight:800;line-height:1;margin-bottom:3px}
+.scard .lbl{font-size:11px;color:var(--muted);font-weight:500}
+.c-green .num{color:var(--green)}.c-red .num{color:var(--red)}.c-yellow .num{color:var(--yellow)}.c-blue .num{color:var(--blue)}
+
+/* HEATMAP */
+.htbl{width:100%;border-collapse:collapse;font-size:12px}
+.htbl th{padding:9px 8px;text-align:center;background:#f8f8f8;border:1px solid var(--border);font-weight:700;white-space:nowrap}
+.htbl th.comp{text-align:left;min-width:180px}
+.htbl td{padding:7px 8px;text-align:center;border:1px solid var(--border);font-weight:600}
+.htbl td.cname{text-align:left;font-weight:600;padding-left:10px;font-size:12px}
+.htbl tr:hover td{filter:brightness(.97)}
+/* Heat colors — vs Value Discipline target */
+.h-exceed{background:#bbf7d0;color:#065f46} /* Vượt chuẩn */
+.h-meet{background:#fef3c7;color:#92400e}   /* Đạt chuẩn (±0) */
+.h-below{background:#fecaca;color:#991b1b}  /* Chưa đạt */
+.htbl th.k{background:var(--kl);color:var(--green-d)}
+.htbl th.s{background:var(--sl);color:var(--yellow-d)}
+.htbl th.e{background:var(--el);color:var(--purple-d)}
+.htbl th.w{background:var(--wl);color:var(--blue-d)}
+/* Overall row */
+.htbl tr.ov td{border-top:2px solid var(--text);background:#f0f0f0;font-weight:800}
+.htbl tr.ov td.cname{font-weight:800;font-size:13px}
+
+/* GAP TABLE */
+.gtbl{width:100%;border-collapse:collapse;font-size:12px}
+.gtbl th{background:#f8f8f8;padding:9px 12px;text-align:left;border-bottom:2px solid var(--border);font-weight:700}
+.gtbl td{padding:9px 12px;border-bottom:1px solid var(--border)}
+.gtbl tr:hover td{background:#fafafa}
+.gpos{color:var(--red);font-weight:700}
+.gneg{color:var(--green);font-weight:700}
+.gzero{color:var(--muted);font-weight:600}
+.pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}
+.p-exc{background:var(--green-l);color:var(--green-d)}
+.p-rdy{background:var(--blue-l);color:var(--blue-d)}
+.p-alm{background:var(--yellow-l);color:var(--yellow-d)}
+.p-dev{background:#fce7f3;color:#9d174d}
+
+/* DOT */
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px}
+.dk{background:var(--kc)}.dw{background:var(--wc)}.ds{background:var(--sc)}.de{background:var(--ec)}
+
+/* RANKING PODIUM */
+.podium{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.pcard{border:1px solid var(--border);border-radius:12px;padding:18px 14px;position:relative;transition:box-shadow .2s}
+.pcard:hover{box-shadow:0 4px 20px rgba(0,0,0,0.1)}
+.pcard .rank{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:22px}
+.pcard .pname{font-size:18px;font-weight:800;margin-top:10px}
+.pcard .prole{font-size:11px;color:var(--muted);margin-bottom:10px}
+.pcard .pscore{font-size:34px;font-weight:800;line-height:1}
+.pcard .psub{font-size:10px;color:var(--muted)}
+.pbar{width:100%;height:7px;background:#e5e7eb;border-radius:4px;margin:8px 0;overflow:hidden}
+.pfill{height:100%;border-radius:4px}
+.prows{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.prow{background:#f8f8f8;border-radius:6px;padding:6px 8px}
+.prow .rl{font-size:10px;color:var(--muted)}
+.prow .rv{font-size:13px;font-weight:700}
+
+/* CEO ASSESS */
+.ceo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.ceo-card{border:1px solid var(--border);border-radius:10px;padding:16px}
+.ceo-name{font-weight:700;font-size:14px;margin-bottom:2px}
+.ceo-sc{font-size:28px;font-weight:800}
+.ceo-note{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5}
+
+/* BAR CHART (horizontal) */
+.barchart{display:flex;flex-direction:column;gap:8px}
+.brow{display:flex;align-items:center;gap:8px}
+.blbl{width:180px;font-size:11px;color:var(--muted);text-align:right;flex-shrink:0}
+.btrack{flex:1;height:22px;background:#f0f0f0;border-radius:4px;overflow:hidden;position:relative}
+.bfill{height:100%;border-radius:4px;position:relative;display:flex;align-items:center;padding:0 8px;transition:width .6s ease}
+.bval{width:38px;font-size:11px;font-weight:700;text-align:right}
+.multi-bar{display:flex;height:100%}
+.mb-seg{height:100%;transition:width .5s}
+
+/* INDIVIDUAL 4-COL */
+.ind4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.icard{border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.icard-hd{padding:12px 14px;color:#fff;font-weight:700;font-size:14px}
+.icard-bd{padding:14px}
+.srow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px}
+.srow:last-child{border:none}
+.srow .sl{color:var(--muted)}.srow .sv{font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.tag{font-size:10px;padding:3px 7px;border-radius:10px;font-weight:600}
+.tg{background:var(--green-l);color:var(--green-d)}
+.tr{background:var(--red-l);color:var(--red-d)}
+.ty{background:var(--yellow-l);color:var(--yellow-d)}
+.tb{background:var(--blue-l);color:var(--blue-d)}
+.tp{background:var(--purple-l);color:var(--purple-d)}
+.ibox{background:#f8f8f8;border-radius:7px;padding:9px 11px;margin-top:8px;font-size:11px;line-height:1.5}
+.ibox .ib-lbl{font-weight:700;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.sec-lbl{font-weight:700;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:10px 0 4px}
+
+/* IDP TABLE */
+.idptbl{width:100%;border-collapse:collapse;font-size:12px}
+.idptbl th{background:#f8f8f8;padding:9px 12px;text-align:left;border:1px solid var(--border);font-weight:700}
+.idptbl td{padding:9px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.idptbl tr:hover td{background:#fafafa}
+.f1{background:var(--red);color:#fff}.f2{background:var(--yellow);color:#fff}
+.fpill{display:inline-block;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:700;color:#fff}
+.idptbl tr.f1row td{background:#fff7f7}
+.idptbl tr.f2row td{background:#fffbf0}
+
+/* FEEDBACK CARDS */
+.fb4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.fbcard{border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.fbcard-hd{padding:12px 14px;color:#fff;font-weight:700;font-size:13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}
+.fbcard-body{max-height:0;overflow:hidden;transition:max-height .4s ease-out}
+.fbcard.op .fbcard-body{max-height:9999px}
+.fbcard .farr{font-size:14px;transition:transform .3s}
+.fbcard.op .farr{transform:rotate(180deg)}
+.fbgrp{padding:12px 14px}
+.fblbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.lo{color:var(--green)}.li{color:var(--red)}
+.qcard{background:#f8f8f8;border-left:3px solid var(--border);padding:8px 12px;margin-bottom:7px;border-radius:0 5px 5px 0;font-size:11px;line-height:1.6;font-style:italic;color:var(--text)}
+.qcard:last-child{margin-bottom:0}
+
+/* RISK BOXES */
+.risk{border-radius:7px;padding:10px 14px;margin-bottom:8px;display:flex;gap:10px;font-size:12px}
+.risk.rg{background:var(--red-l);border-left:4px solid var(--red)}.risk.ry{background:#fff7ed;border-left:4px solid var(--yellow)}
+.risk strong{display:block;font-size:12px;margin-bottom:2px}
+
+/* TB TEAM cell with label */
+.tbcell{display:flex;flex-direction:column;align-items:center;gap:2px}
+.tblabel{font-size:10px;font-weight:700;padding:1px 6px;border-radius:8px}
+.tbl-v{color:var(--green-d);background:var(--green-l)} /* Vượt */
+.tbl-d{color:var(--yellow-d);background:var(--yellow-l)} /* Đạt */
+.tbl-c{color:var(--red-d);background:var(--red-l)} /* Chưa đạt */
+
+/* FORMULA NOTE */
+.fnote{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:7px;padding:10px 14px;font-size:11px;line-height:1.7;margin-top:10px;color:#065f46}
+.fnote strong{display:block;margin-bottom:4px;font-size:12px}
+
+/* ALERT BOX */
+.alert{background:var(--red-l);border-left:4px solid var(--red);padding:11px 14px;border-radius:0 7px 7px 0;font-size:12px;margin-bottom:12px}
+
+/* FOOTER */
+.footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:11px}
+
+/* CHART CONTAINER */
+canvas{display:block}
+
+@media(max-width:900px){
+  .stats,.podium,.ind4,.fb4{grid-template-columns:1fr 1fr}
+  .ceo-row{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .wrap{padding:16px}
+  .stats,.podium,.ind4,.fb4,.ceo-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="badge">PATI Group · People Team</div>
+  <h1>📊 BOM 360° Leadership Assessment</h1>
+  <div class="sub">Báo cáo đánh giá năng lực lãnh đạo toàn diện · 12 Năng lực × 5 Level · Value Discipline Framework</div>
+  <div class="meta">
+    <span><strong>Đợt:</strong> Tháng 5/2026</span>
+    <span><strong>Đối tượng:</strong> 4 BOM (Board of Management)</span>
+    <span><strong>Self-Assessment:</strong> 48 câu / người</span>
+    <span><strong>Peer 360°:</strong> 41 câu × 3 raters / người</span>
+    <span><strong>Chuẩn so sánh:</strong> Value Discipline — không phải baseline 3.0</span>
+  </div>
+</div>
+
+<!-- ===== PHẦN 1: OVERVIEW ===== -->
+<div class="sec op" id="s1">
+  <div class="sec-hd" onclick="tog('s1')">
+    <div class="stl"><span>🎯</span><span>PHẦN 1 · BOM LEADERSHIP OVERVIEW DASHBOARD</span><span class="lbl">OVERVIEW</span></div>
+    <span class="arr">▼</span>
+  </div>
+  <div class="sec-bd">
+
+    <!-- Quick Stats -->
+    <div class="stats">
+      <div class="scard c-green"><div class="num">4.30</div><div class="lbl">Kevin · Peer 360 Avg</div></div>
+      <div class="scard c-blue"><div class="num">3.54</div><div class="lbl">Winne · Peer 360 Avg</div></div>
+      <div class="scard c-yellow"><div class="num">2.71</div><div class="lbl">Seth · Peer 360 Avg</div></div>
+      <div class="scard c-red" style="--num-color:var(--purple)"><div class="num" style="color:var(--purple)">2.48</div><div class="lbl">Ethan · Peer 360 Avg</div></div>
+    </div>
+
+    <!-- 1.1 HEAT MAP -->
+    <div class="sub op" id="sub11">
+      <div class="sub-hd" onclick="tsub('sub11')">
+        <span>🗺️ 1.1 · Heat Map — 12 Năng lực × 4 Người <small style="font-weight:400;color:#999;margin-left:8px">Màu = Peer 360 so với chuẩn Value Discipline từng vị trí</small></span>
+        <span class="sarr">▾</span>
+      </div>
+      <div class="sub-bd">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;font-size:11px">
+          <span style="background:#bbf7d0;color:#065f46;padding:2px 8px;border-radius:4px;font-weight:700">🟢 Vượt chuẩn</span>
+          <span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:4px;font-weight:700">🟡 Đạt chuẩn (chênh ≤0.2)</span>
+          <span style="background:#fecaca;color:#991b1b;padding:2px 8px;border-radius:4px;font-weight:700">🔴 Chưa đạt chuẩn</span>
+          <span style="margin-left:8px;color:var(--muted)">· TB Team: <span style="color:var(--green);font-weight:700">Vượt</span> / <span style="color:var(--yellow);font-weight:700">Đạt</span> / <span style="color:var(--red);font-weight:700">Chưa đạt</span> so với chuẩn Manager (target chủ đạo)</span>
+        </div>
+        <div style="overflow-x:auto">
+        <table class="htbl">
+          <thead>
+            <tr>
+              <th class="comp">Năng lực</th>
+              <th style="width:90px">Target<br><small style="font-weight:400;font-size:10px">CEO / Mgr</small></th>
+              <th class="k">Kevin<br><small style="font-weight:500;font-size:10px">CEO</small></th>
+              <th class="s">Seth<br><small style="font-weight:500;font-size:10px">Mktg Mgr</small></th>
+              <th class="e">Ethan<br><small style="font-weight:500;font-size:10px">Creative Mgr</small></th>
+              <th class="w">Winne<br><small style="font-weight:500;font-size:10px">People Mgr</small></th>
+              <th style="background:#f8f8f8">TB Team<br><small style="font-weight:400;font-size:10px">vs Mgr target</small></th>
+            </tr>
+          </thead>
+          <tbody id="htbody"></tbody>
+        </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 1.2 SELF vs PEER GAP -->
+    <div class="sub op" id="sub12">
+      <div class="sub-hd" onclick="tsub('sub12')">
+        <span>🔍 1.2 · Self vs Peer Gap — Ai đang nhận thức chính xác bản thân?</span>
+        <span class="sarr">▾</span>
+      </div>
+      <div class="sub-bd">
+        <table class="gtbl">
+          <thead>
+            <tr><th>Người</th><th>Self</th><th>Peer 360</th><th>Gap (Self−Peer)</th><th>Level</th><th>Readiness</th><th>Nhận định</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="dot dk"></span><strong>Kevin</strong></td>
+              <td><strong>3.73</strong></td><td><strong style="color:var(--kc)">4.30</strong></td>
+              <td class="gneg"><strong>−0.57</strong></td>
+              <td style="font-weight:700;color:var(--kc)">Chuyên gia (L4)</td>
+              <td><span class="pill p-exc">🏆 Excellent 3/3</span></td>
+              <td style="font-size:11px">Underestimate — peers nhìn Kevin cao hơn Kevin tự nhìn</td>
+            </tr>
+            <tr>
+              <td><span class="dot dw"></span><strong>Winne</strong></td>
+              <td><strong>3.75</strong></td><td><strong style="color:var(--wc)">3.54</strong></td>
+              <td class="gzero"><strong>+0.21</strong></td>
+              <td style="font-weight:700;color:var(--wc)">Thành thạo (L3)</td>
+              <td><span class="pill p-exc">⭐ Excellent 1 / Ready 2</span></td>
+              <td style="font-size:11px">Calibrated tốt nhất BOM — tự nhìn nhận khá chính xác</td>
+            </tr>
+            <tr>
+              <td><span class="dot ds"></span><strong>Seth</strong></td>
+              <td><strong>3.88</strong></td><td><strong style="color:var(--sc)">2.71</strong></td>
+              <td class="gpos"><strong>+1.17</strong></td>
+              <td style="font-weight:700;color:var(--sc)">Đang phát triển (L2)</td>
+              <td><span class="pill p-alm">🟡 Almost Ready 3/3</span></td>
+              <td style="font-size:11px">Blind spot lớn nhất BOM — tự đánh giá cao hơn thực tế 1.17 điểm</td>
+            </tr>
+            <tr>
+              <td><span class="dot de"></span><strong>Ethan</strong></td>
+              <td><strong>3.56</strong></td><td><strong style="color:var(--ec)">2.48</strong></td>
+              <td class="gpos"><strong>+1.08</strong></td>
+              <td style="font-weight:700;color:var(--ec)">Đang phát triển (L2)</td>
+              <td><span class="pill p-alm">🟡 Almost 2 / Ready 1</span></td>
+              <td style="font-size:11px">Blind spot tương tự Seth — khoảng cách nhận thức rõ rệt</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 1.3 STRENGTHS & RISKS — BAR CHART -->
+    <div class="sub op" id="sub13">
+      <div class="sub-hd" onclick="tsub('sub13')">
+        <span>⚡ 1.3 · Điểm mạnh & Rủi ro tổ chức</span>
+        <span class="sarr">▾</span>
+      </div>
+      <div class="sub-bd">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;flex-wrap:wrap">
+          <div>
+            <div style="font-weight:700;font-size:13px;color:var(--green);margin-bottom:12px">✅ Điểm mạnh BOM — TB Peer (4 người)</div>
+            <canvas id="chart-strength" height="220"></canvas>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:13px;color:var(--red);margin-bottom:12px">🚨 Rủi ro tổ chức — TB Peer vs Chuẩn Manager (4)</div>
+            <canvas id="chart-risk" height="220"></canvas>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <div class="risk rg"><span style="font-size:16px">🔴</span><div><strong>07. Recruiting — TB 2.75 / Chuẩn 4 (Mgr) → Thiếu 1.25</strong>Thấp nhất BOM. Seth: 1.75 / Ethan: 1.83 — cả hai đều thiếu >2 điểm so với chuẩn Manager. Đây là năng lực then chốt nhất khi scale.</div></div>
+          <div class="risk ry"><span style="font-size:16px">🟠</span><div><strong>Cảnh báo chiến lược:</strong> Kevin đang gánh phần lớn năng lực BOM. Seth & Ethan chưa đạt chuẩn ở <em>bất kỳ năng lực nào</em> (0/12) — rủi ro phụ thuộc cá nhân cần giải quyết trong 90 ngày.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.4 RANKING -->
+    <div class="sub op" id="sub14">
+      <div class="sub-hd" onclick="tsub('sub14')">
+        <span>🏆 1.4 · BOM Ranking & CEO Assessment</span>
+        <span class="sarr">▾</span>
+      </div>
+      <div class="sub-bd">
+        <!-- Podium -->
+        <div style="margin-bottom:6px;font-size:12px;color:var(--muted)">Xếp hạng theo Peer 360 Overall — thước đo khách quan nhất (3 người đánh giá mỗi BOM)</div>
+        <div class="podium">
+          <div class="pcard" style="border-color:var(--kc)">
+            <div class="rank">🥇</div>
+            <div class="pname" style="color:var(--kc)">Kevin</div>
+            <div class="prole">CEO · C-Level</div>
+            <div class="pscore" style="color:var(--kc)">4.30</div>
+            <div class="psub">Peer 360 Overall</div>
+            <div class="pbar"><div class="pfill" style="width:86%;background:var(--kc)"></div></div>
+            <div class="prows">
+              <div class="prow"><div class="rl">Self</div><div class="rv">3.73</div></div>
+              <div class="prow"><div class="rl">Gap</div><div class="rv" style="color:var(--green)">−0.57</div></div>
+              <div class="prow"><div class="rl">Level</div><div class="rv" style="font-size:11px">Chuyên gia</div></div>
+              <div class="prow"><div class="rl">Đạt chuẩn</div><div class="rv">3/12</div></div>
+            </div>
+            <div style="margin-top:8px"><span class="pill p-exc">🏆 Excellent 3/3</span></div>
+          </div>
+          <div class="pcard" style="border-color:var(--wc)">
+            <div class="rank">🥈</div>
+            <div class="pname" style="color:var(--wc)">Winne</div>
+            <div class="prole">People Manager</div>
+            <div class="pscore" style="color:var(--wc)">3.54</div>
+            <div class="psub">Peer 360 Overall</div>
+            <div class="pbar"><div class="pfill" style="width:70.8%;background:var(--wc)"></div></div>
+            <div class="prows">
+              <div class="prow"><div class="rl">Self</div><div class="rv">3.75</div></div>
+              <div class="prow"><div class="rl">CEO Score</div><div class="rv" style="color:var(--wc)">3.71</div></div>
+              <div class="prow"><div class="rl">Level</div><div class="rv" style="font-size:11px">Thành thạo</div></div>
+              <div class="prow"><div class="rl">Đạt chuẩn</div><div class="rv">2/12</div></div>
+            </div>
+            <div style="margin-top:8px"><span class="pill p-exc">⭐ Excellent 1 / Ready 2</span></div>
+          </div>
+          <div class="pcard" style="border-color:var(--sc)">
+            <div class="rank">🥉</div>
+            <div class="pname" style="color:var(--sc)">Seth</div>
+            <div class="prole">Marketing Manager</div>
+            <div class="pscore" style="color:var(--sc)">2.71</div>
+            <div class="psub">Peer 360 Overall</div>
+            <div class="pbar"><div class="pfill" style="width:54.2%;background:var(--sc)"></div></div>
+            <div class="prows">
+              <div class="prow"><div class="rl">Self</div><div class="rv">3.88</div></div>
+              <div class="prow"><div class="rl">CEO Score</div><div class="rv" style="color:var(--red)">2.25</div></div>
+              <div class="prow"><div class="rl">Level</div><div class="rv" style="font-size:11px">Đang PT</div></div>
+              <div class="prow"><div class="rl">Đạt chuẩn</div><div class="rv" style="color:var(--red)">0/12</div></div>
+            </div>
+            <div style="margin-top:8px"><span class="pill p-alm">🟡 Almost Ready 3/3</span></div>
+          </div>
+          <div class="pcard" style="border-color:var(--ec)">
+            <div class="rank">4️⃣</div>
+            <div class="pname" style="color:var(--ec)">Ethan</div>
+            <div class="prole">Creative & Affiliate</div>
+            <div class="pscore" style="color:var(--ec)">2.48</div>
+            <div class="psub">Peer 360 Overall</div>
+            <div class="pbar"><div class="pfill" style="width:49.6%;background:var(--ec)"></div></div>
+            <div class="prows">
+              <div class="prow"><div class="rl">Self</div><div class="rv">3.56</div></div>
+              <div class="prow"><div class="rl">CEO Score</div><div class="rv" style="color:var(--red)">2.23</div></div>
+              <div class="prow"><div class="rl">Level</div><div class="rv" style="font-size:11px">Đang PT</div></div>
+              <div class="prow"><div class="rl">Đạt chuẩn</div><div class="rv" style="color:var(--red)">0/12</div></div>
+            </div>
+            <div style="margin-top:8px"><span class="pill p-alm">🟡 Almost 2 / Ready 1</span></div>
+          </div>
+        </div>
+
+        <!-- CEO Assessment -->
+        <div style="font-weight:700;font-size:13px;margin:14px 0 10px;display:flex;align-items:center;gap:8px">
+          <span>👑</span> CEO (Kevin) đánh giá 3 Manager
+          <span style="font-size:11px;font-weight:400;color:var(--muted)">(từ 41 câu 360° Peer Review)</span>
+        </div>
+        <div class="ceo-row">
+          <div class="ceo-card" style="border-left:4px solid var(--wc)">
+            <div class="ceo-name" style="color:var(--wc)">Winne · People</div>
+            <div class="ceo-sc" style="color:var(--wc)">3.71 <span style="font-size:13px;font-weight:400;color:var(--muted)">/5</span></div>
+            <div class="pbar"><div class="pfill" style="width:74.2%;background:var(--wc)"></div></div>
+            <div class="ceo-note">Cao nhất — CEO đánh giá Winne vượt trội rõ rệt. Nổi bật: Recruiting (4.5), Organizing & Leadership & Coaching (4.0). CEO nhìn Winne <strong style="color:var(--green)">cao hơn</strong> peer avg (3.71 vs 3.54).</div>
+          </div>
+          <div class="ceo-card" style="border-left:4px solid var(--sc)">
+            <div class="ceo-name" style="color:var(--sc)">Seth · Marketing</div>
+            <div class="ceo-sc" style="color:var(--sc)">2.25 <span style="font-size:13px;font-weight:400;color:var(--muted)">/5</span></div>
+            <div class="pbar"><div class="pfill" style="width:45%;background:var(--sc)"></div></div>
+            <div class="ceo-note">CEO nhìn Seth <strong style="color:var(--red)">thấp hơn</strong> peer avg (2.25 vs 2.71). Điểm cao nhất: Communication (3.25), Leadership & Expertise (3.0). Thấp nhất: Goal Setting & Resource (1.5).</div>
+          </div>
+          <div class="ceo-card" style="border-left:4px solid var(--ec)">
+            <div class="ceo-name" style="color:var(--ec)">Ethan · Creative</div>
+            <div class="ceo-sc" style="color:var(--ec)">2.23 <span style="font-size:13px;font-weight:400;color:var(--muted)">/5</span></div>
+            <div class="pbar"><div class="pfill" style="width:44.6%;background:var(--ec)"></div></div>
+            <div class="ceo-note">CEO nhìn Ethan <strong style="color:var(--red)">thấp hơn</strong> peer avg (2.23 vs 2.48). Điểm cao nhất: Leadership & Expertise (3.0). Thấp nhất: Control (1.5), Performance (1.75).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PHẦN 2: INDIVIDUAL REPORT ===== -->
+<div class="sec op" id="s2">
+  <div class="sec-hd" onclick="tog('s2')">
+    <div class="stl"><span>👤</span><span>PHẦN 2 · INDIVIDUAL REPORT</span><span class="lbl">4 NGƯỜI · SO SÁNH SONG SONG</span></div>
+    <span class="arr">▼</span>
+  </div>
+  <div class="sec-bd">
+
+    <!-- Score Overview -->
+    <div class="sub op" id="sub21">
+      <div class="sub-hd" onclick="tsub('sub21')">
+        <span>📋 2.1 · Bảng điểm & Phân tích từng người</span><span class="sarr">▾</span>
+      </div>
+      <div class="sub-bd">
+        <div class="ind4">
+          <!-- Kevin -->
+          <div class="icard">
+            <div class="icard-hd" style="background:var(--kc)">🟢 Kevin · CEO</div>
+            <div class="icard-bd">
+              <div class="srow"><span class="sl">Peer 360</span><span class="sv" style="color:var(--kc);font-size:18px">4.30</span></div>
+              <div class="srow"><span class="sl">Self</span><span class="sv">3.73</span></div>
+              <div class="srow"><span class="sl">Gap (Self−Peer)</span><span class="sv gneg">−0.57</span></div>
+              <div class="srow"><span class="sl">Level</span><span class="sv">Chuyên gia (L4)</span></div>
+              <div class="srow"><span class="sl">Đạt chuẩn CEO</span><span class="sv">3/12</span></div>
+              <div class="srow"><span class="sl">Readiness</span><span class="sv"><span class="pill p-exc">Excellent 3/3</span></span></div>
+              <div class="sec-lbl">✅ Điểm mạnh (peer)</div>
+              <div class="tags"><span class="tag tg">Leadership 4.92</span><span class="tag tg">Expertise 4.83</span><span class="tag tg">Performance 4.78</span><span class="tag tg">Goal Setting 4.56</span></div>
+              <div class="sec-lbl">⚠️ Cần phát triển</div>
+              <div class="tags"><span class="tag ty">Recruiting 4.08</span><span class="tag ty">Process 3.67</span><span class="tag ty">Control 3.89</span></div>
+              <div class="ibox"><div class="ib-lbl">🔍 Blind Spot</div>Underestimate năng lực cốt lõi: Leadership (self 3.75 vs peer 4.92, chênh −1.17) và Expertise (self 3.50 vs peer 4.83, chênh −1.33). Không leverage đúng mức tầm ảnh hưởng lãnh đạo.</div>
+            </div>
+          </div>
+          <!-- Seth -->
+          <div class="icard">
+            <div class="icard-hd" style="background:var(--sc)">🟡 Seth · Marketing Manager</div>
+            <div class="icard-bd">
+              <div class="srow"><span class="sl">Peer 360</span><span class="sv" style="color:var(--sc);font-size:18px">2.71</span></div>
+              <div class="srow"><span class="sl">Self</span><span class="sv">3.88</span></div>
+              <div class="srow"><span class="sl">Gap (Self−Peer)</span><span class="sv gpos">+1.17</span></div>
+              <div class="srow"><span class="sl">Level</span><span class="sv">Đang phát triển (L2)</span></div>
+              <div class="srow"><span class="sl">Đạt chuẩn Manager</span><span class="sv" style="color:var(--red)">0/12</span></div>
+              <div class="srow"><span class="sl">Readiness</span><span class="sv"><span class="pill p-alm">Almost Ready 3/3</span></span></div>
+              <div class="sec-lbl">✅ Điểm mạnh tương đối</div>
+              <div class="tags"><span class="tag ty">Expertise 3.25</span><span class="tag ty">Control 3.00</span><span class="tag ty">Performance 3.00</span></div>
+              <div class="sec-lbl">🔴 Cần phát triển khẩn cấp</div>
+              <div class="tags"><span class="tag tr">Recruiting 1.75</span><span class="tag tr">Organizing 2.33</span><span class="tag tr">Leadership 2.67</span><span class="tag tr">Planning 2.67</span></div>
+              <div class="ibox"><div class="ib-lbl">🔍 Blind Spot</div>Overestimate lớn nhất: Recruiting (self 3.75 vs peer 1.75, chênh +2.0) và Coaching (self 4.25 vs peer 2.73, chênh +1.52). Cần buổi 1-on-1 thẳng thắn với số liệu cụ thể.</div>
+            </div>
+          </div>
+          <!-- Ethan -->
+          <div class="icard">
+            <div class="icard-hd" style="background:var(--ec)">🟣 Ethan · Creative & Affiliate</div>
+            <div class="icard-bd">
+              <div class="srow"><span class="sl">Peer 360</span><span class="sv" style="color:var(--ec);font-size:18px">2.48</span></div>
+              <div class="srow"><span class="sl">Self</span><span class="sv">3.56</span></div>
+              <div class="srow"><span class="sl">Gap (Self−Peer)</span><span class="sv gpos">+1.08</span></div>
+              <div class="srow"><span class="sl">Level</span><span class="sv">Đang phát triển (L2)</span></div>
+              <div class="srow"><span class="sl">Đạt chuẩn Manager</span><span class="sv" style="color:var(--red)">0/12</span></div>
+              <div class="srow"><span class="sl">Readiness</span><span class="sv"><span class="pill p-alm">Almost 2 / Ready 1</span></span></div>
+              <div class="sec-lbl">✅ Điểm mạnh tương đối</div>
+              <div class="tags"><span class="tag tp">Expertise 2.92</span><span class="tag tp">Control 2.78</span><span class="tag tp">Planning 2.67</span></div>
+              <div class="sec-lbl">🔴 Cần phát triển khẩn cấp</div>
+              <div class="tags"><span class="tag tr">Recruiting 1.83</span><span class="tag tr">Leadership 2.33</span><span class="tag tr">Resource 2.33</span><span class="tag tr">Comm. 2.44</span></div>
+              <div class="ibox"><div class="ib-lbl">🔍 Blind Spot</div>Overestimate lớn nhất: Performance (self 4.50 vs peer 2.56, chênh +1.94) và Coaching (self 4.25 vs peer 2.47, chênh +1.78). Tin mình đang dẫn tốt — peers không thấy điều đó.</div>
+            </div>
+          </div>
+          <!-- Winne -->
+          <div class="icard">
+            <div class="icard-hd" style="background:var(--wc)">🔵 Winne · People Manager</div>
+            <div class="icard-bd">
+              <div class="srow"><span class="sl">Peer 360</span><span class="sv" style="color:var(--wc);font-size:18px">3.54</span></div>
+              <div class="srow"><span class="sl">Self</span><span class="sv">3.75</span></div>
+              <div class="srow"><span class="sl">Gap (Self−Peer)</span><span class="sv gzero">+0.21</span></div>
+              <div class="srow"><span class="sl">Level</span><span class="sv">Thành thạo (L3)</span></div>
+              <div class="srow"><span class="sl">Đạt chuẩn Manager</span><span class="sv" style="color:var(--wc)">2/12</span></div>
+              <div class="srow"><span class="sl">Readiness</span><span class="sv"><span class="pill p-exc">Excellent 1 / Ready 2</span></span></div>
+              <div class="sec-lbl">✅ Điểm mạnh</div>
+              <div class="tags"><span class="tag tb">Performance 3.89</span><span class="tag tb">Goal Setting 3.78</span><span class="tag tb">Resource 3.67</span><span class="tag tb">Comm. 3.67</span></div>
+              <div class="sec-lbl">⚠️ Cần phát triển</div>
+              <div class="tags"><span class="tag ty">Coaching 3.20</span><span class="tag ty">Recruiting 3.33</span><span class="tag ty">Control 3.44</span></div>
+              <div class="ibox"><div class="ib-lbl">🔍 Blind Spot</div>Overestimate Coaching (self 3.75 vs peer 3.20) — điểm CEO identify là then chốt nhất để lên Director. Underestimate Planning (self 2.75 vs peer 3.56 — peers nhìn tốt hơn Winne tự nhìn).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Radar Chart -->
+    <div class="sub op" id="sub22">
+      <div class="sub-hd" onclick="tsub('sub22')"><span>📡 2.2 · Radar Chart — So sánh Peer 360 (4 người)</span><span class="sarr">▾</span></div>
+      <div class="sub-bd">
+        <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+          <div id="radar-wrap"></div>
+          <div style="flex:1;min-width:180px">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:14px;height:14px;border-radius:50%;background:var(--kc);display:inline-block"></span>Kevin (CEO) — 4.30</div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:14px;height:14px;border-radius:50%;background:var(--wc);display:inline-block"></span>Winne (People) — 3.54</div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:14px;height:14px;border-radius:50%;background:var(--sc);display:inline-block"></span>Seth (Marketing) — 2.71</div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:14px;height:14px;border-radius:50%;background:var(--ec);display:inline-block"></span>Ethan (Creative) — 2.48</div>
+            </div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.8;background:#f8f8f8;padding:10px 12px;border-radius:7px">
+              <div style="font-weight:700;color:var(--text);margin-bottom:4px">Đọc biểu đồ:</div>
+              <div>• Vòng ngoài = điểm 5 (tối đa)</div>
+              <div>• Đường đứt nét đỏ = chuẩn Manager (4.0)</div>
+              <div>• Diện tích càng lớn = năng lực toàn diện hơn</div>
+              <div style="margin-top:6px;color:var(--green-d);font-weight:600">Kevin phủ rộng nhất. Winne đang bắt kịp. Seth & Ethan tập trung vùng giữa (2–3).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PHẦN 3: IDP ===== -->
+<div class="sec op" id="s3">
+  <div class="sec-hd" onclick="tog('s3')">
+    <div class="stl"><span>🚀</span><span>PHẦN 3 · INDIVIDUAL DEVELOPMENT PLAN (IDP)</span><span class="lbl">KẾ HOẠCH PHÁT TRIỂN</span></div>
+    <span class="arr">▼</span>
+  </div>
+  <div class="sec-bd">
+
+    <!-- 3.1 BOM Priority -->
+    <div class="sub op" id="sub31">
+      <div class="sub-hd" onclick="tsub('sub31')"><span>🎯 3.1 · Top Năng lực Ưu tiên Toàn BOM</span><span class="sarr">▾</span></div>
+      <div class="sub-bd">
+        <div style="overflow-x:auto">
+        <table class="idptbl">
+          <thead><tr><th>#</th><th>Năng lực</th><th>TB Peer</th><th>Chuẩn Mgr</th><th>Gap TB</th><th>Mức độ</th></tr></thead>
+          <tbody>
+            <tr><td><span class="fpill f1">1</span></td><td><strong>07. Recruiting</strong></td><td>2.75</td><td>4</td><td style="color:var(--red);font-weight:700">−1.25</td><td><span style="background:var(--red-l);color:var(--red-d);padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700">🔴 Khẩn cấp</span></td></tr>
+            <tr><td><span class="fpill f1">2</span></td><td><strong>08. Coaching</strong></td><td>3.17</td><td>4</td><td style="color:var(--red);font-weight:700">−0.83</td><td><span style="background:#fff7ed;color:#9a3412;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700">🟠 Cao</span></td></tr>
+            <tr><td><span class="fpill f2">3</span></td><td><strong>02. Planning</strong></td><td>3.20</td><td>4</td><td style="color:var(--yellow);font-weight:700">−0.80</td><td><span style="background:#fff7ed;color:#9a3412;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700">🟠 Cao</span></td></tr>
+            <tr><td><span class="fpill f2">4</span></td><td><strong>06. Control</strong></td><td>3.28</td><td>4</td><td style="color:var(--yellow);font-weight:700">−0.72</td><td><span style="background:#fff7ed;color:#9a3412;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700">🟠 Cao</span></td></tr>
+            <tr><td><span class="fpill f2">5</span></td><td><strong>03. Organizing</strong></td><td>3.03</td><td>3–4</td><td style="color:var(--yellow);font-weight:700">−0.47</td><td><span style="background:var(--yellow-l);color:var(--yellow-d);padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700">🟡 Trung bình</span></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.2 Individual IDP -->
+    <div class="sub op" id="sub32">
+      <div class="sub-hd" onclick="tsub('sub32')"><span>📌 3.2 · IDP Từng Người — 4 cột so sánh</span><span class="sarr">▾</span></div>
+      <div class="sub-bd">
+        <div style="overflow-x:auto">
+        <table class="idptbl">
+          <thead>
+            <tr>
+              <th style="width:70px">Focus</th>
+              <th style="width:120px">Hạng mục</th>
+              <th><span class="dot dk"></span>Kevin · CEO</th>
+              <th><span class="dot ds"></span>Seth · Mktg</th>
+              <th><span class="dot de"></span>Ethan · Creative</th>
+              <th><span class="dot dw"></span>Winne · People</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- F1 -->
+            <tr class="f1row">
+              <td rowspan="2" style="text-align:center"><span class="fpill f1" style="display:block;margin-bottom:4px">F1</span><small style="color:var(--muted);font-size:10px">Ưu tiên 1</small></td>
+              <td><strong>Năng lực</strong></td>
+              <td><strong>07. Recruiting</strong><br><small style="color:var(--muted)">4.08 → cần 5</small></td>
+              <td><strong>07. Recruiting</strong><br><small style="color:var(--red)">1.75 → cần 4</small></td>
+              <td><strong>07. Recruiting</strong><br><small style="color:var(--red)">1.83 → cần 4</small></td>
+              <td><strong>08. Coaching</strong><br><small style="color:var(--yellow-d)">3.20 → cần 4</small></td>
+            </tr>
+            <tr class="f1row">
+              <td><strong>Tại sao</strong></td>
+              <td style="font-size:11px">CEO cần tuyển người giỏi hơn mình và xây pipeline — kiến tạo đội tự nhân bản</td>
+              <td style="font-size:11px">Gap lớn nhất BOM (−2.25). Không tuyển được người = không scale được. Đây là ranh giới giữa individual contributor và Manager</td>
+              <td style="font-size:11px">"Team chưa thành công bao giờ" là hệ quả trực tiếp của không build được đội đúng</td>
+              <td style="font-size:11px">CEO identify là năng lực then chốt để lên Director. Đang overestimate chính mình ở điểm này (self 3.75 vs peer 3.20)</td>
+            </tr>
+            <!-- F2 -->
+            <tr class="f2row">
+              <td rowspan="2" style="text-align:center"><span class="fpill f2" style="display:block;margin-bottom:4px">F2</span><small style="color:var(--muted);font-size:10px">Ưu tiên 2</small></td>
+              <td><strong>Năng lực</strong></td>
+              <td><strong>04. Process</strong><br><small style="color:var(--muted)">3.67 → cần 4</small></td>
+              <td><strong>11. Leadership</strong><br><small style="color:var(--red)">2.67 → cần 4</small></td>
+              <td><strong>08. Coaching</strong><br><small style="color:var(--red)">2.47 → cần 4</small></td>
+              <td><strong>07. Recruiting</strong><br><small style="color:var(--yellow-d)">3.33 → cần 4</small></td>
+            </tr>
+            <tr class="f2row">
+              <td><strong>Tại sao</strong></td>
+              <td style="font-size:11px">Tổ chức chỉ scale được khi quy trình tự vận hành — hiện tại đang phụ thuộc CEO quá nhiều</td>
+              <td style="font-size:11px">Peers phản ánh Seth hoạt động solo, không contribute vào BOM collective — chưa dẫn dắt team theo vision</td>
+              <td style="font-size:11px">Overestimate lớn nhất (self 4.25 vs peer 2.47, chênh +1.78). Khoảng cách giữa "làm tốt cá nhân" và "phát triển người khác"</td>
+              <td style="font-size:11px">People Manager không tự xây được đội People mạnh = rủi ro phụ thuộc cá nhân mãn tính</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PHẦN 4: FEEDBACK ===== -->
+<div class="sec" id="s4">
+  <div class="sec-hd" onclick="tog('s4')">
+    <div class="stl"><span>💬</span><span>PHẦN 4 · PEER FEEDBACK — Nguyên văn ẩn danh</span><span class="lbl">TESTIMONIALS</span></div>
+    <span class="arr">▼</span>
+  </div>
+  <div class="sec-bd">
+    <div style="background:var(--bg);padding:9px 14px;border-radius:7px;font-size:11px;color:var(--muted);margin-bottom:14px">ℹ️ Tất cả phản hồi được ẩn danh. Nhấn vào từng card để xem chi tiết.</div>
+    <div class="fb4">
+
+      <!-- Kevin -->
+      <div class="fbcard op" id="fb-kevin">
+        <div class="fbcard-hd" style="background:var(--kc)" onclick="tfb('fb-kevin')">
+          <span>🟢 Kevin · CEO</span><span class="farr">▾</span>
+        </div>
+        <div class="fbcard-body">
+          <div class="fbgrp">
+            <div class="fblbl lo">⭐ Outstanding Behavior</div>
+            <div class="qcard">"Khả năng học hỏi & update kiến thức, skill siêu nhanh, siêu đỉnh. Lead by example về khả năng tự học & phát triển bản thân, tạo standard cao cho công ty, luôn nâng Floor. Năng lực nổi trội nhất là Chuyên môn tiên phong, Truyền cảm hứng, Kiểm soát và Rủi ro."</div>
+            <div class="qcard">"Không gì nổi trội vì luôn đặt tiêu chuẩn cao, biến tiêu chuẩn cao đó thành base-level. Tinh thần chịu học hỏi và đổi mới liên tục."</div>
+            <div class="qcard">"Luôn giữ vững high standard, đào tạo nhân viên và cho rất nhiều cơ hội — trao quyền để team phát triển."</div>
+          </div>
+          <div class="fbgrp" style="border-top:1px solid var(--border)">
+            <div class="fblbl li">🔧 Improvement Area</div>
+            <div class="qcard">"Đánh giá & Khích lệ."</div>
+            <div class="qcard">"Em chưa đủ tiêu chuẩn để đánh giá."</div>
+            <div class="qcard">"Cải thiện về kĩ năng giao tiếp (nhẹ nhàng/thấu hiểu nhân viên). Khi tiêu chuẩn quá cao, level quá lệch sẽ nhìn ra tất cả những người không đạt tiêu chuẩn của mình là 'ngu' và ngôn từ có thể ảnh hưởng họ mạnh. Chúng ta ra được 2 loại: nếu ai chịu hiểu — lắng nghe — tiếp thu thì sẽ đi rất nhanh. Tuy nhiên phần lớn nhân sự không được như thế nên họ sẽ 'bị áp lực mạnh, bị xúc phạm' và họ chọn rời đi."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seth -->
+      <div class="fbcard" id="fb-seth">
+        <div class="fbcard-hd" style="background:var(--sc)" onclick="tfb('fb-seth')">
+          <span>🟡 Seth · Marketing Mgr</span><span class="farr">▾</span>
+        </div>
+        <div class="fbcard-body">
+          <div class="fbgrp">
+            <div class="fblbl lo">⭐ Outstanding Behavior</div>
+            <div class="qcard">"Vững chuyên môn trong lĩnh vực phụ trách, khả năng xử lý vấn đề tốt. Am hiểu ngành."</div>
+            <div class="qcard">"Sẵn sàng thử việc mới khi có yêu cầu + làm việc cho tới xong mới thôi — he is learner by doing. Có khả năng tốt trong việc đồng hành cùng nhân viên cấp dưới hơn."</div>
+            <div class="qcard">"Không ngại bất kì challenge nào (KPI, ca khó, xử lí khó, etc.) luôn chủ động xử lí, học và hoàn thành."</div>
+          </div>
+          <div class="fbgrp" style="border-top:1px solid var(--border)">
+            <div class="fblbl li">🔧 Improvement Area</div>
+            <div class="qcard">"Xây dựng & phát triển đội ngũ. Giao tiếp & truyền động lực."</div>
+            <div class="qcard">"Năng lực lắng nghe, giao tiếp chi tiết, đóng góp vào trong nhóm với vai trò lãnh đạo. Thường xuyên không phản hồi tin nhắn nhóm, không đóng góp vào ý kiến chung của BOM. Chỉ làm việc cá nhân thôi chưa đủ để trở thành lãnh đạo."</div>
+            <div class="qcard">"Communication và listening. Vì chỉ khi được skill này mới convert được ra với người khác rõ ràng, nghe hiểu nhân viên và build team thành công. Success không count bằng một người được."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ethan -->
+      <div class="fbcard" id="fb-ethan">
+        <div class="fbcard-hd" style="background:var(--ec)" onclick="tfb('fb-ethan')">
+          <span>🟣 Ethan · Creative Mgr</span><span class="farr">▾</span>
+        </div>
+        <div class="fbcard-body">
+          <div class="fbgrp">
+            <div class="fblbl lo">⭐ Outstanding Behavior</div>
+            <div class="qcard">"Giao tiếp, truyền cảm hứng & đánh giá, khích lệ nhân viên tốt. Học hỏi nhanh & nhạy với đổi mới, sáng tạo."</div>
+            <div class="qcard">"Trong khi cắt giảm nhân sự bộ phận creative, Ethan sẵn sàng chủ động học và làm creative on-hand. Không ngại những công việc making hand-dirty. Không ngại chuyển việc sang các mảng khác nếu doanh nghiệp cần."</div>
+            <div class="qcard">"Ethan làm rất tốt những việc như network, outsource. Có khả năng học nhanh những kỹ năng mới để get shit done."</div>
+          </div>
+          <div class="fbgrp" style="border-top:1px solid var(--border)">
+            <div class="fblbl li">🔧 Improvement Area</div>
+            <div class="qcard">"Chuyên môn tiên phong — nên có mũi nhọn để phát triển cho bản thân & Team."</div>
+            <div class="qcard">"Năng lực tự học mà không cần người khác chỉ trần giới hạn bản thân là gì. Bạn có thể lanh các phần bề mặt, nhưng cần phải đi sâu xuống (deep dive) 2–3 layers nữa để trở thành master của mảng việc mình làm."</div>
+            <div class="qcard">"Ethan chưa lead nhiều case để có thể đánh giá. Khả năng học nhanh nhưng hay dừng lại sớm ở bề mặt — nếu được hướng dẫn đi sâu vào bản chất có potential sẽ rất giỏi."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Winne -->
+      <div class="fbcard" id="fb-winne">
+        <div class="fbcard-hd" style="background:var(--wc)" onclick="tfb('fb-winne')">
+          <span>🔵 Winne · People Mgr</span><span class="farr">▾</span>
+        </div>
+        <div class="fbcard-body">
+          <div class="fbgrp">
+            <div class="fblbl lo">⭐ Outstanding Behavior</div>
+            <div class="qcard">"Trong giai đoạn công ty khó khăn, Quyên vẫn luôn nhìn đây là điều tích cực và thấy đây là cơ hội. Chịu khó tự học, mày mò và đề xuất ứng dụng vào team ngay lập tức. Năng lực tự học có lẽ là năng lực hiếm có chỉ xuất hiện ở growth mindset people."</div>
+            <div class="qcard">"Lúc công ty bị rối loạn vì nhiều người cũ nghỉ và nhiều người mới tới, chị Quyên dẫn đầu trong việc xây dựng các culture activities để đẩy tinh thần cũng như performance của công ty lên."</div>
+            <div class="qcard">"Trong dự án đột phá PATI về văn hóa, người này đổi hoàn toàn cuộc chơi. Xây dựng bộ gen cốt lõi, thúc đẩy mọi người phát triển. Đối với cá nhân em thì đây là nhân sự đỉnh nhất về HR em đã từng làm việc qua."</div>
+          </div>
+          <div class="fbgrp" style="border-top:1px solid var(--border)">
+            <div class="fblbl li">🔧 Improvement Area</div>
+            <div class="qcard">"Năng lực coaching potential manager trong BOM lên manager — đây có lẽ là năng lực để manager > director (C-level). Năng lực coaching — đào tạo lãnh đạo — quan trọng hơn cả."</div>
+            <div class="qcard">"Khả năng dám thử không sợ sai, dám chịu đau để phát triển. Năng lực học và ứng dụng AI — dám show ra những gì đang học và áp dụng, fail and success."</div>
+            <div class="qcard">"TRAIN VÀ BUILD TEAM RIÊNG. Người này làm việc tốt nhưng MỘT MÌNH. Team chưa thành công bao giờ và chưa support được. Năng lực bị hạn chế vì team."</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>Last updated:</strong> Tháng 5/2026 &nbsp;|&nbsp; <strong>Owner:</strong> People Team &nbsp;|&nbsp; <strong>Framework:</strong> 12 Năng lực × 5 Level · Value Discipline &nbsp;|&nbsp; <strong>Version:</strong> 2.0
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+// ===== TOGGLE =====
+function tog(id){document.getElementById(id).classList.toggle('op')}
+function tsub(id){document.getElementById(id).classList.toggle('op')}
+function tfb(id){document.getElementById(id).classList.toggle('op')}
+
+// ===== DATA =====
+const comps=['01. Goal Setting','02. Planning','03. Organizing','04. Process','05. Resource','06. Control','07. Recruiting','08. Coaching','09. Performance','10. Communication','11. Leadership','12. Expertise'];
+const short=['Goal Set','Planning','Organizing','Process','Resource','Control','Recruiting','Coaching','Perform','Comm.','Leadership','Expertise'];
+const targets={Kevin:[4,4,4,4,5,4,5,5,5,4,5,5],Seth:[4,4,3,3,4,4,4,4,4,4,4,4],Ethan:[4,4,3,3,4,4,4,4,4,4,4,4],Winne:[4,4,3,3,4,4,4,4,4,4,4,4]};
+const p360={Kevin:[4.56,3.89,4.11,3.67,4.44,3.89,4.08,4.27,4.78,4.22,4.92,4.83],Seth:[2.78,2.67,2.33,2.56,2.89,3.00,1.75,2.73,3.00,2.89,2.67,3.25],Ethan:[2.44,2.67,2.33,2.67,2.33,2.78,1.83,2.47,2.56,2.44,2.33,2.92],Winne:[3.78,3.56,3.33,3.44,3.67,3.44,3.33,3.20,3.89,3.67,3.67,3.50]};
+const colors={Kevin:'#10b981',Seth:'#f59e0b',Ethan:'#8b5cf6',Winne:'#3b82f6'};
+const names=['Kevin','Seth','Ethan','Winne'];
+
+// ===== HEATMAP =====
+function heatClass(score,target){
+  const g=score-target;
+  if(g>0.2)return'h-exceed';
+  if(g>=-0.2)return'h-meet';
+  return'h-below';
+}
+function tbClass(avg,mgr_t){
+  const g=avg-mgr_t;
+  if(g>0.2)return{cls:'tbl-v',txt:'Vượt'};
+  if(g>=-0.2)return{cls:'tbl-d',txt:'Đạt'};
+  return{cls:'tbl-c',txt:'Chưa đạt'};
+}
+
+const tb=document.getElementById('htbody');
+comps.forEach((c,i)=>{
+  const mgr_t=targets.Seth[i];// Manager target (Seth=Ethan=Winne)
+  const avg=((p360.Kevin[i]+p360.Seth[i]+p360.Ethan[i]+p360.Winne[i])/4).toFixed(2);
+  const lb=tbClass(parseFloat(avg),mgr_t);
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td class="cname">${c}</td>
+    <td style="font-size:11px;color:#999">CEO:${targets.Kevin[i]} / Mgr:${mgr_t}</td>
+    <td class="${heatClass(p360.Kevin[i],targets.Kevin[i])}">${p360.Kevin[i].toFixed(2)}</td>
+    <td class="${heatClass(p360.Seth[i],targets.Seth[i])}">${p360.Seth[i].toFixed(2)}</td>
+    <td class="${heatClass(p360.Ethan[i],targets.Ethan[i])}">${p360.Ethan[i].toFixed(2)}</td>
+    <td class="${heatClass(p360.Winne[i],targets.Winne[i])}">${p360.Winne[i].toFixed(2)}</td>
+    <td><div class="tbcell"><span style="font-weight:700">${avg}</span><span class="tblabel ${lb.cls}">${lb.txt}</span></div></td>`;
+  tb.appendChild(tr);
+});
+// Overall row
+const ov=document.createElement('tr');ov.className='ov';
+const ovgK=(4.30-4).toFixed(2);
+ov.innerHTML=`<td class="cname">OVERALL</td><td style="font-size:11px;color:#999">—</td>
+  <td class="h-exceed" style="font-weight:800">4.30</td>
+  <td class="h-below" style="font-weight:800">2.71</td>
+  <td class="h-below" style="font-weight:800">2.48</td>
+  <td class="h-below" style="font-weight:800">3.54</td>
+  <td style="font-weight:800">3.26</td>`;
+tb.appendChild(ov);
+
+// ===== STRENGTH/RISK CHARTS =====
+const teamAvg=comps.map((_,i)=>parseFloat(((p360.Kevin[i]+p360.Seth[i]+p360.Ethan[i]+p360.Winne[i])/4).toFixed(2)));
+const sortedIdx=[...teamAvg.map((v,i)=>({v,i}))].sort((a,b)=>b.v-a.v);
+const top5idx=sortedIdx.slice(0,5).map(x=>x.i);
+const bot5idx=sortedIdx.slice(-5).map(x=>x.i);
+
+// Strength chart
+new Chart(document.getElementById('chart-strength'),{
+  type:'bar',
+  data:{
+    labels:top5idx.map(i=>short[i]),
+    datasets:[{
+      label:'TB Peer BOM',
+      data:top5idx.map(i=>teamAvg[i]),
+      backgroundColor:['#10b981','#10b981','#34d399','#34d399','#6ee7b7'],
+      borderRadius:5,borderSkipped:false
+    }]
+  },
+  options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{min:0,max:5,grid:{color:'#f0f0f0'}},y:{grid:{display:false}}}}
+});
+
+// Risk chart
+new Chart(document.getElementById('chart-risk'),{
+  type:'bar',
+  data:{
+    labels:bot5idx.map(i=>short[i]),
+    datasets:[
+      {label:'TB Peer',data:bot5idx.map(i=>teamAvg[i]),backgroundColor:'#fca5a5',borderRadius:5,borderSkipped:false},
+      {label:'Chuẩn Mgr',data:bot5idx.map(i=>targets.Seth[i]),backgroundColor:'rgba(107,114,128,0.2)',borderRadius:5,borderSkipped:false,type:'bar'}
+    ]
+  },
+  options:{indexAxis:'y',responsive:true,plugins:{legend:{position:'bottom',labels:{font:{size:10}}}},scales:{x:{min:0,max:5,grid:{color:'#f0f0f0'}},y:{grid:{display:false}}}}
+});
+
+// ===== RADAR SVG =====
+(function(){
+  const S=380,cx=S/2,cy=S/2,R=140,n=12,MX=5;
+  function pt(angle,r){return[cx+r*Math.cos(angle),cy+r*Math.sin(angle)]}
+  function path(vals){
+    return vals.map((v,i)=>{const[x,y]=pt((i/n)*2*Math.PI-Math.PI/2,(v/MX)*R);return(i?'L':'M')+x+','+y}).join('')+'Z'
+  }
+  let svg=`<svg viewBox="0 0 ${S} ${S}" width="${S}" height="${S}" xmlns="http://www.w3.org/2000/svg">`;
+  // Rings
+  [1,2,3,4,5].forEach(r=>{
+    const pts=Array.from({length:n},(_,i)=>pt((i/n)*2*Math.PI-Math.PI/2,(r/MX)*R));
+    const d=pts.map((p,i)=>(i?'L':'M')+p[0]+','+p[1]).join('')+'Z';
+    svg+=`<path d="${d}" fill="none" stroke="#e5e5e5" stroke-width="${r===4?1.5:0.8}" stroke-dasharray="${r===4?'6,3':''}"/>`;
+    svg+=`<text x="${cx+4}" y="${cy-r/MX*R+4}" font-size="9" fill="#aaa">${r}</text>`;
+  });
+  // Target ring (4) for manager — red dashed
+  const t4=Array.from({length:n},(_,i)=>pt((i/n)*2*Math.PI-Math.PI/2,(4/MX)*R));
+  svg+=`<path d="${t4.map((p,i)=>(i?'L':'M')+p[0]+','+p[1]).join('')}Z" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>`;
+  // Axes + labels
+  comps.forEach((c,i)=>{
+    const a=(i/n)*2*Math.PI-Math.PI/2;
+    const[x1,y1]=pt(a,R);
+    svg+=`<line x1="${cx}" y1="${cy}" x2="${x1}" y2="${y1}" stroke="#e5e5e5" stroke-width="1"/>`;
+    const[lx,ly]=pt(a,R+22);
+    const s=c.replace(/\d+\. /,'').substring(0,11);
+    svg+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="9" fill="#555" font-weight="600">${s}</text>`;
+  });
+  // Data
+  const pa=['Kevin','Winne','Seth','Ethan'];
+  const al=['55','55','55','55'];
+  pa.forEach((name,pi)=>{
+    const clr=colors[name];
+    const d=path(p360[name]);
+    svg+=`<path d="${d}" fill="${clr}${al[pi]}" stroke="${clr}" stroke-width="2" opacity=".9"/>`;
+    p360[name].forEach((v,i)=>{
+      const[x,y]=pt((i/n)*2*Math.PI-Math.PI/2,(v/MX)*R);
+      svg+=`<circle cx="${x}" cy="${y}" r="3" fill="${clr}"/>`;
+    });
+  });
+  svg+='</svg>';
+  document.getElementById('radar-wrap').innerHTML=svg;
+})();
+</script>
+</body>
+</html>
